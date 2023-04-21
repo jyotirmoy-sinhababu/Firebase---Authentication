@@ -4,6 +4,8 @@ import { auth } from '../../firebaseConfig/FirebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const SignUp = () => {
+  // all the states & hooks.
+
   const [signUpData, setSignUpData] = useState({
     email: '',
     password: '',
@@ -16,11 +18,15 @@ const SignUp = () => {
     emailEr: '',
   });
 
+  //observe the change in input field.
+
   const handleChange = (e) => {
     setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
   };
 
   const { email, password, name } = signUpData;
+
+  //  form submission
 
   const handleSubmit = () => {
     if (!name) {
@@ -65,6 +71,7 @@ const SignUp = () => {
       >
         <label htmlFor='name'>Enter your name</label>
         <input
+          onChange={handleChange}
           type='text'
           name='name'
           className='name'
@@ -72,6 +79,7 @@ const SignUp = () => {
         />
         <label htmlFor='email'>Enter your email</label>
         <input
+          onChange={handleChange}
           type='text'
           name='email'
           className='email'
@@ -79,6 +87,7 @@ const SignUp = () => {
         />
         <label htmlFor='password'>Enter your password</label>
         <input
+          onChange={handleChange}
           type='text '
           name='password'
           className='password'
