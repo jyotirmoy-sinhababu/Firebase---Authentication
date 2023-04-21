@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { auth } from '../../firebaseConfig/FirebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const SignUp = () => {
   // all the states & hooks.
+  const navigate = useNavigate();
 
   const [signUpData, setSignUpData] = useState({
     email: '',
@@ -35,7 +37,7 @@ const SignUp = () => {
       setSignUpError({ ...signUpError, nameEr: 'wrong format, letters only' });
     } else if (!email) {
       setSignUpError({ ...signUpError, emailEr: 'Please enter your email' });
-    } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setSignUpError({ ...signUpError, emailEr: 'wrong format' });
     } else if (!password) {
       setSignUpError({
@@ -57,6 +59,7 @@ const SignUp = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
+      navigate('/dash');
     }
   };
 

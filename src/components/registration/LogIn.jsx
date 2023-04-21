@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const LogIn = () => {
   // all the states & hooks
+  const navigate = useNavigate();
 
   const [inputData, setInputData] = useState({
     email: '',
@@ -18,8 +19,6 @@ const LogIn = () => {
     emailEr: '',
     passwordEr: '',
   });
-
-  const navigate = useNavigate();
 
   //observe the change in input field.
 
@@ -33,7 +32,7 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     if (!email) {
       setLogInEr({ ...logInEr, emailEr: 'please, provide your email' });
-    } else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       setLogInEr({ ...logInEr, emailEr: 'wrong format' });
     } else if (!password) {
       setLogInEr({
@@ -56,7 +55,7 @@ const LogIn = () => {
           const errorMessage = error.message;
         });
 
-      navigate('/sign');
+      navigate('/dash');
     }
   };
 
